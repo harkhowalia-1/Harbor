@@ -1,0 +1,9 @@
+# Build output
+.build/
+build/
+dist/
+*.dmg
+.swiftpm/
+*.log
+.DS_Store
+xcuserdata/

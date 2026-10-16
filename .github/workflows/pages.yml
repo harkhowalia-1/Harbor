@@ -1,0 +1,50 @@
+name: Website
+
+# Publishes site/ to the gh-pages branch, which GitHub Pages serves
+# (Settings › Pages › Deploy from a branch › gh-pages, / (root)).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pages.yml"
+  release:
+    types: [published, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -R site/. _site/
+          OWNER="${GITHUB_REPOSITORY%%/*}"
+          REPO="${GITHUB_REPOSITORY##*/}"
+          PAGES_URL="https://${OWNER,,}.github.io/${REPO}"
+          find _site -name '*.html' -o -name '*.js' -o -name '*.xml' -o -name '*.txt' | while read -r f; do
+            sed -i "s#__REPO__#${GITHUB_REPOSITORY}#g; s#__PAGES__#${PAGES_URL}#g" "$f"
+          done
+          touch _site/.nojekyll
+
+      - name: Publish to gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUTHOR_NAME: ${{ github.repository_owner }}
+          AUTHOR_EMAIL: ${{ github.repository_owner_id }}+${{ github.repository_owner }}@users.noreply.github.com
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="$AUTHOR_NAME" -c user.email="$AUTHOR_EMAIL" commit -q -m "Website from ${GITHUB_SHA::7}"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

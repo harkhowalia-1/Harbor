@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Disk image window background (600x400 points): dmg/background.png and background@2x.png.
+     The app icon sits at (165, 200) and the Applications link at (435, 200); see scripts/package-dmg.sh. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 600px; height: 400px; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    background:
+      radial-gradient(70% 60% at 88% 0%, rgba(250, 158, 102, .35), transparent 70%),
+      radial-gradient(60% 50% at 8% 0%, rgba(122, 104, 214, .22), transparent 70%),
+      linear-gradient(180deg, #f6f3ff 0%, #ffffff 70%);
+    color: #1f2257; position: relative;
+  }
+  h1 { position: absolute; top: 34px; width: 100%; margin: 0; text-align: center; font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+  p { position: absolute; top: 66px; width: 100%; margin: 0; text-align: center; font-size: 13px; opacity: .7; }
+  .arrow { position: absolute; left: 248px; top: 178px; width: 104px; height: 44px; }
+  svg.waves { position: absolute; left: 0; bottom: 0; width: 600px; height: 70px; }
+</style>
+</head>
+<body>
+  <h1>Drag Harbor to Applications</h1>
+  <p>Then open it and drop in an .ipa</p>
+  <svg class="arrow" viewBox="0 0 104 44" aria-hidden="true">
+    <path d="M6 22 H86" stroke="#5b4aa0" stroke-opacity=".7" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 11"/>
+    <path d="M78 10 L96 22 L78 34" fill="none" stroke="#5b4aa0" stroke-opacity=".8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <svg class="waves" viewBox="0 0 600 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 30 C 100 5 190 55 300 30 S 500 5 600 25 V90 H0Z" fill="#2f8fd6" opacity=".5"/>
+    <path d="M0 50 C 120 25 210 75 320 50 S 510 30 600 45 V90 H0Z" fill="#1f73c4" opacity=".8"/>
+    <path d="M0 68 C 130 50 230 88 350 68 S 530 55 600 64 V90 H0Z" fill="#14549e"/>
+  </svg>
+</body>
+</html>

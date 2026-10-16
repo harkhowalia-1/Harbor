@@ -1,0 +1,95 @@
+name: Build
+
+# Builds Harbor.app (the library app, the harbor CLI and the injected runtime), runs the tests and
+# makes Harbor.dmg. On main it publishes the release named in VERSION.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Sources/**"
+      - "Runtime/**"
+      - "Tests/**"
+      - "scripts/**"
+      - "dmg/**"
+      - "Package.swift"
+      - "VERSION"
+      - ".github/workflows/build.yml"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mac:
+    name: Harbor.app
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      HAS_MAC_CERT: ${{ secrets.MAC_CERT_P12 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select newest Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)"
+
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      - name: Version
+        run: echo "VERSION=$(tr -d '[:space:]' < VERSION)" >> "$GITHUB_ENV"
+
+      - name: Test
+        run: swift test
+
+      - name: Build
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: scripts/build.sh
+
+      # Optional: Developer ID signing and notarization when these secrets exist.
+      - name: Import signing certificate
+        if: env.HAS_MAC_CERT == 'true'
+        env:
+          MAC_CERT_P12: ${{ secrets.MAC_CERT_P12 }}
+          MAC_CERT_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+        run: |
+          echo "$MAC_CERT_P12" | base64 --decode > cert.p12
+          security create-keychain -p ci build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p ci build.keychain
+          security import cert.p12 -k build.keychain -P "$MAC_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci build.keychain
+          rm cert.p12
+
+      - name: Package (.dmg)
+        env:
+          MAC_SIGN_IDENTITY: ${{ secrets.MAC_SIGN_IDENTITY }}
+          NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+          NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+        run: scripts/package-dmg.sh "$GITHUB_WORKSPACE/Harbor.dmg"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Harbor-${{ env.VERSION }}
+          path: Harbor.dmg
+
+      - name: Publish release
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          target_commitish: ${{ github.sha }}
+          name: Harbor ${{ env.VERSION }}
+          prerelease: ${{ startsWith(env.VERSION, '0.') }}
+          make_latest: true
+          overwrite_files: true
+          generate_release_notes: true
+          body: |
+            **Mac (Apple silicon, macOS 14+):** open `Harbor.dmg` and drag Harbor to Applications. The first time you open it, allow it in System Settings › Privacy & Security › Open Anyway. Then drop in a decrypted `.ipa`.
+          files: Harbor.dmg

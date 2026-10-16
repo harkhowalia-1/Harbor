@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- Social preview (1200x630): site/assets/og-image.png. Also the README banner at 1600x560. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    color: #fff;
+    background:
+      radial-gradient(60% 70% at 78% 18%, rgba(250, 158, 102, .55), transparent 70%),
+      radial-gradient(50% 60% at 12% 0%, rgba(122, 104, 214, .55), transparent 70%),
+      linear-gradient(180deg, #1a1f4d 0%, #2a2a6b 45%, #5b4aa0 72%, #e98a6a 100%);
+    position: relative;
+  }
+  .stars { position: absolute; inset: 0; background-image:
+      radial-gradient(1.5px 1.5px at 12% 18%, #fff8, transparent), radial-gradient(1px 1px at 30% 8%, #fff7, transparent),
+      radial-gradient(1.5px 1.5px at 46% 22%, #fff6, transparent), radial-gradient(1px 1px at 63% 6%, #fff8, transparent),
+      radial-gradient(1px 1px at 88% 30%, #fff6, transparent), radial-gradient(1.5px 1.5px at 22% 40%, #fff5, transparent); }
+  .content { position: absolute; left: 7%; right: 7%; top: 0; bottom: 30%; display: flex; align-items: center; gap: 5%; }
+  .icon { height: 78%; aspect-ratio: 1; filter: drop-shadow(0 18px 40px rgba(10, 12, 40, .5)); }
+  h1 { margin: 0; font-size: calc(100vh * .17); font-weight: 800; letter-spacing: -.035em; line-height: 1; }
+  p { margin: .35em 0 0; font-size: calc(100vh * .058); font-weight: 600; opacity: .94; letter-spacing: -.01em; line-height: 1.25; }
+  .pills { display: flex; gap: .6em; margin-top: 1.1em; font-size: calc(100vh * .032); font-weight: 600; }
+  .pills span { padding: .45em .95em; border-radius: 999px; background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .28); backdrop-filter: blur(8px); }
+  svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 34%; }
+</style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="content">
+    <img class="icon" src="../assets/icon.png" alt="">
+    <div>
+      <h1>Harbor</h1>
+      <p>iPhone and iPad apps,<br>at home on your Mac.</p>
+      <div class="pills"><span>Free &amp; open source</span><span>Apple silicon</span><span>Native, no emulation</span></div>
+    </div>
+  </div>
+  <svg viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 70 C 200 20 380 120 600 70 S 1000 20 1200 60 V220 H0Z" fill="#2f8fd6" opacity=".55"/>
+    <path d="M0 110 C 240 60 420 160 640 110 S 1020 70 1200 100 V220 H0Z" fill="#1f73c4" opacity=".85"/>
+    <path d="M0 150 C 260 110 460 190 700 150 S 1060 120 1200 140 V220 H0Z" fill="#14549e"/>
+  </svg>
+</body>
+</html>
