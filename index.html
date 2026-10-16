@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Harbor: Run iPhone and iPad Apps on Your Mac (Free, Open Source)</title>
+  <meta name="description" content="Harbor turns iPhone and iPad apps (.ipa) into real Mac apps on Apple silicon: their own window, Dock icon and Spotlight entry, with keyboard-to-touch mapping, game controllers, motion, camera and keychain support. Free and open source.">
+  <meta name="keywords" content="run iPhone apps on Mac, iPad apps on Mac, ipa to Mac app, Mac Catalyst, Apple silicon, PlayCover alternative, sideload iOS apps Mac, keymapping, open source">
+  <meta name="theme-color" content="#1a1f4d">
+  <link rel="canonical" href="https://harkhowalia-1.github.io/Harbor/">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Harbor">
+  <meta property="og:title" content="Harbor: iPhone and iPad apps, at home on your Mac">
+  <meta property="og:description" content="Turn an .ipa into a real Mac app on Apple silicon, with its own window, Dock icon, keymapping, controllers, camera and more. Free and open source.">
+  <meta property="og:url" content="https://harkhowalia-1.github.io/Harbor/">
+  <meta property="og:image" content="https://harkhowalia-1.github.io/Harbor/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Harbor icon, a phone standing in the sea at dusk, beside the words: iPhone and iPad apps, at home on your Mac">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Harbor: iPhone and iPad apps, at home on your Mac">
+  <meta name="twitter:description" content="Turn an .ipa into a real Mac app on Apple silicon. Free and open source.">
+  <meta name="twitter:image" content="https://harkhowalia-1.github.io/Harbor/assets/og-image.png">
+  <link rel="stylesheet" href="site.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Harbor",
+      "description": "Turns iPhone and iPad apps (.ipa) into native Mac apps on Apple silicon, with keymapping, game controllers, motion, camera and keychain support.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "macOS 14 or later (Apple silicon)",
+      "url": "https://harkhowalia-1.github.io/Harbor/",
+      "downloadUrl": "https://github.com/harkhowalia-1/Harbor/releases/latest/download/Harbor.dmg",
+      "image": "https://harkhowalia-1.github.io/Harbor/assets/og-image.png",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "codeRepository": "https://github.com/harkhowalia-1/Harbor"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Can Harbor run apps I downloaded from the App Store?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. App Store downloads are encrypted with FairPlay, and Harbor refuses them. It converts decrypted packages: your own builds, ad hoc and enterprise builds, and open-source apps." } },
+        { "@type": "Question", "name": "Is Harbor an emulator?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Apple silicon Macs run the same Arm code as iPhones and iPads. Harbor rewrites each binary for Mac Catalyst, so the app runs natively against the iOS frameworks built into macOS." } },
+        { "@type": "Question", "name": "What do I need?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A Mac with Apple silicon (M1 or later) running macOS 14 or later. You don't need Xcode or an Apple developer account." } }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Harbor home">
+        <img src="assets/icon-512.png" alt="" width="32" height="32">
+        <span>Harbor</span>
+      </a>
+      <nav aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/harkhowalia-1/Harbor" class="gh" aria-label="Harbor on GitHub">
+          <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.72 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </nav>
+      <a class="btn btn-small" href="https://github.com/harkhowalia-1/Harbor/releases/latest/download/Harbor.dmg" data-download>Download</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero: a dusk harbour, with a Mac desktop where an iPhone app runs in its own window. -->
+    <section class="hero">
+      <div class="sky" aria-hidden="true"><span class="stars"></span><span class="sun"></span></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Free and open source · Apple silicon</p>
+          <h1>iPhone and iPad apps,<br><span class="glow">at home on your Mac.</span></h1>
+          <p class="lede">Harbor turns an <code>.ipa</code> into a real Mac app, with its own window, Dock icon and Spotlight entry. It runs natively on Apple silicon, and your keyboard, mouse, controller and camera all work in it.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="https://github.com/harkhowalia-1/Harbor/releases/latest/download/Harbor.dmg" data-download>
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.86-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5ZM14.2 6.13c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.64-1.05 1.67-.92 2.66.97.08 1.96-.49 2.56-1.21Z"/></svg>
+              <span>Download for Mac</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/harkhowalia-1/Harbor">View source</a>
+          </div>
+          <p class="fine" data-release>Version <span data-version>1.0.0</span> · <span data-size>about 1.5 MB</span> · macOS 14 or later</p>
+        </div>
+
+        <div class="desk" aria-label="Illustration: an iPhone game running in its own Mac window, with on-screen keys mapped to touches, and Harbor in the Dock">
+          <div class="screen">
+            <div class="menubar"><span class="apple"></span><b>Tide Runner</b><span>File</span><span>Edit</span><span>Window</span><i></i></div>
+            <div class="window phone">
+              <div class="titlebar"><span></span><span></span><span></span></div>
+              <div class="app">
+                <div class="game-sky"></div>
+                <div class="boat"></div>
+                <div class="game-sea"></div>
+                <div class="hud"><b>1,284</b><span>★ ★ ★</span></div>
+                <div class="key k-w">W</div><div class="key k-a">A</div><div class="key k-s">S</div><div class="key k-d">D</div>
+                <div class="key k-space">Space</div>
+                <div class="stick"><i></i></div>
+              </div>
+            </div>
+            <div class="toast"><img src="assets/icon-512.png" alt=""><div><b>Tide Runner is ready</b><span>Converted with Harbor</span></div></div>
+            <div class="dock">
+              <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+              <img src="assets/icon-512.png" alt=""><span class="d d4 active"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg class="waves" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+        <path class="w1" d="M0 60 C 240 10 480 110 720 60 S 1200 10 1440 50 V160 H0Z"/>
+        <path class="w2" d="M0 95 C 260 50 520 140 780 95 S 1250 55 1440 85 V160 H0Z"/>
+        <path class="w3" d="M0 125 C 300 95 560 160 840 125 S 1290 100 1440 118 V160 H0Z"/>
+      </svg>
+    </section>
+
+    <section class="steps" id="how">
+      <div class="wrap">
+        <p class="kicker">How it works</p>
+        <h2>Drop it in. Dock it. Done.</h2>
+        <ol class="step-list">
+          <li>
+            <span class="num">1</span>
+            <h3>Drop in an .ipa</h3>
+            <p>Drag a package onto Harbor, or open it from Finder. Harbor checks it first: architecture, encryption, the frameworks it needs and anything a Mac can't do.</p>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <h3>Harbor rebuilds it for the Mac</h3>
+            <p>Every binary is retargeted to Mac Catalyst, a small runtime is added, and the app gets a Mac icon, a sandbox and a signature. Nothing is emulated.</p>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <h3>Open it like any Mac app</h3>
+            <p>It's in Applications, Launchpad and Spotlight, with its own Dock icon, window and save data. Remove it from Harbor whenever you like.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="wrap">
+        <p class="kicker">Features</p>
+        <h2>Everything an iPhone app expects,<br>on a Mac that isn't one.</h2>
+        <p class="section-lede">iOS apps assume a touchscreen, a phone-shaped screen, motion sensors and a back camera. Harbor's runtime fills each of those gaps from inside the app, so it behaves as if it's on the device it was made for.</p>
+        <div class="grid">
+          <article class="card wide">
+            <div class="ico i-keys" aria-hidden="true"></div>
+            <h3>Keys and controllers become touches</h3>
+            <p>Press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>K</kbd> over any app to open the keymap editor. Click to place a button or a joystick, then press a key or a controller button to bind it. Harbor sends real multi-touch events, so games built only for touch just work.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-window" aria-hidden="true"></div>
+            <h3>The right window</h3>
+            <p>Windows take the shape of the chosen iPhone or iPad. They can resize with the aspect ratio locked, or freely for iPad apps that support Split View. Landscape-only games open in landscape.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-device" aria-hidden="true"></div>
+            <h3>A convincing device</h3>
+            <p>Apps see the iPhone or iPad profile you pick (model, screen and idiom), while macOS and UIKit keep seeing the real Mac.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-motion" aria-hidden="true"></div>
+            <h3>Motion, without a gyroscope</h3>
+            <p>Tilt-to-steer games get an accelerometer and gyroscope, driven by the arrow keys, a controller's stick or the pointer.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-camera" aria-hidden="true"></div>
+            <h3>Your Mac's camera</h3>
+            <p>Apps that ask for the iPhone's back camera get your Mac's camera, whether it's built in, Continuity Camera or USB.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-web" aria-hidden="true"></div>
+            <h3>Web apps get camera and mic</h3>
+            <p>On the Mac, iOS web views lack <code>getUserMedia</code> and <code>MediaRecorder</code>. Harbor adds them back, with recording to MP4.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-key" aria-hidden="true"></div>
+            <h3>A keychain that works</h3>
+            <p>Apps that store logins in the keychain normally fail without an Apple signature. Harbor keeps those items in the app's own sandbox instead.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-check" aria-hidden="true"></div>
+            <h3>Know before you convert</h3>
+            <p>Harbor checks each package first: its architecture, whether it's encrypted, the frameworks it needs and anything a Mac can't provide.</p>
+          </article>
+          <article class="card">
+            <div class="ico i-mac" aria-hidden="true"></div>
+            <h3>A real Mac citizen</h3>
+            <p>Every app has its own sandbox, its own privacy prompts with the app's own wording, and its own Launchpad and Spotlight entry. There's no wrapper app in between.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cli">
+      <div class="wrap cli-grid">
+        <div>
+          <p class="kicker">For the terminal</p>
+          <h2>A CLI that does it all, too.</h2>
+          <p>Harbor.app includes the <code>harbor</code> command-line tool. Use it to check an app's compatibility, convert apps in a script, adjust per-app settings or remove apps along with their data.</p>
+          <p class="muted">It's inside the app at <code>Harbor.app/Contents/Resources/bin/harbor</code>.</p>
+        </div>
+        <div class="terminal" role="img" aria-label="Terminal: harbor inspect, convert and settings commands">
+          <div class="term-bar"><span></span><span></span><span></span><b>zsh</b></div>
+<pre><code><span class="p">$</span> harbor inspect TideRunner.ipa
+Tide Runner 2.1 (com.example.tiderunner)
+  devices     iPhone
+  platform    iOS, minimum OS 15.0
+  binaries    3
+  encrypted   no
+<span class="ok">✓</span> Can be converted
+
+<span class="p">$</span> harbor convert TideRunner.ipa --device iphone-17-pro
+• Unpacking TideRunner.ipa
+• Patching binaries for Mac Catalyst
+• Signing (ad hoc)
+<span class="ok">✓</span> Tide Runner is ready.
+
+<span class="p">$</span> harbor settings "Tide Runner" --motion controller</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="install" id="install">
+      <div class="wrap">
+        <p class="kicker">Install</p>
+        <h2>Ready in a minute.</h2>
+        <div class="install-grid">
+          <ol class="install-steps">
+            <li><b>Download</b> <a href="https://github.com/harkhowalia-1/Harbor/releases/latest/download/Harbor.dmg" data-download>Harbor.dmg</a> and open it.</li>
+            <li><b>Drag Harbor to Applications.</b></li>
+            <li><b>Open Harbor.</b> The first time, macOS says it can't verify the developer, because Harbor is signed by its builders rather than by Apple. Go to <em>System Settings › Privacy &amp; Security</em> and click <em>Open Anyway</em>. You only need to do this once.</li>
+            <li><b>Drop in an <code>.ipa</code></b> and follow the compatibility report.</li>
+          </ol>
+          <aside class="req">
+            <h3>Requirements</h3>
+            <ul>
+              <li>A Mac with Apple silicon (M1 or later)</li>
+              <li>macOS 14 Sonoma or later</li>
+              <li>A decrypted <code>.ipa</code></li>
+              <li>No Xcode and no developer account</li>
+            </ul>
+            <p class="muted">Prefer the terminal? Clear the download quarantine with<br><code class="copy" data-copy="xattr -dr com.apple.quarantine /Applications/Harbor.app">xattr -dr com.apple.quarantine /Applications/Harbor.app</code></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="wrap narrow">
+        <p class="kicker">FAQ</p>
+        <h2>Questions, answered.</h2>
+        <details>
+          <summary>Can Harbor run apps I downloaded from the App Store?</summary>
+          <p>No. App Store downloads are encrypted with Apple's FairPlay DRM, and Harbor detects that and refuses them. It converts decrypted packages: your own builds from Xcode, ad hoc and enterprise builds, and open-source apps. Only convert apps you have the right to use.</p>
+        </details>
+        <details>
+          <summary>Is this emulation?</summary>
+          <p>No. Apple silicon Macs run the same Arm code as iPhones and iPads, and macOS ships the iOS frameworks for Mac Catalyst. Harbor rewrites each binary's platform tag so macOS loads it as a Catalyst app, so it runs at full native speed.</p>
+        </details>
+        <details>
+          <summary>Which apps work best?</summary>
+          <p>Games and apps that are self-contained. Features that depend on an Apple-issued signature can't work with a local one: push notifications, iCloud, Game Center, Sign in with Apple and in-app purchases. <code>harbor inspect</code> tells you what to expect before you convert.</p>
+        </details>
+        <details>
+          <summary>How do I play a touch-only game with a keyboard?</summary>
+          <p>Open the game and press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>K</kbd>. Click where a button should go, then press the key or controller button for it. You can also add a joystick for movement. Press <kbd>Esc</kbd> to save, and <kbd>⌘</kbd><kbd>⇧</kbd><kbd>M</kbd> turns the mapping off while you type.</p>
+        </details>
+        <details>
+          <summary>Does it change my Mac?</summary>
+          <p>Converted apps go in <code>/Applications</code>, and each one's data stays in its own sandbox container. Harbor doesn't install system extensions or need administrator access. To remove an app, use Harbor or <code>harbor remove "App" --delete-data</code>.</p>
+        </details>
+        <details>
+          <summary>Why does macOS warn me the first time I open it?</summary>
+          <p>Harbor releases are signed ad hoc, not notarized by Apple. Allow it once in <em>System Settings › Privacy &amp; Security</em>. The source code is public, and you can build it yourself with <code>scripts/build.sh</code>.</p>
+        </details>
+        <details>
+          <summary>Is it free?</summary>
+          <p>Yes. It's free and open source under the GNU GPL v3, with no account, no telemetry and no ads.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap final-inner">
+        <img src="assets/icon-512.png" alt="" width="112" height="112">
+        <h2>Bring your apps into Harbor.</h2>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://github.com/harkhowalia-1/Harbor/releases/latest/download/Harbor.dmg" data-download><span>Download Harbor</span></a>
+          <a class="btn btn-ghost-dark" href="https://github.com/harkhowalia-1/Harbor/releases">All releases</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>Harbor is free software under the <a href="https://github.com/harkhowalia-1/Harbor/blob/main/LICENSE">GNU GPL v3</a>. It isn't affiliated with Apple. iPhone, iPad, Mac and macOS are trademarks of Apple Inc.</p>
+      <p><a href="https://github.com/harkhowalia-1/Harbor">Source</a> · <a href="https://github.com/harkhowalia-1/Harbor/issues">Report an issue</a> · <a href="https://github.com/harkhowalia-1/Harbor/releases">Releases</a></p>
+    </div>
+  </footer>
+
+  <script src="site.js" defer></script>
+</body>
+</html>
